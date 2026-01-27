@@ -1,10 +1,13 @@
 CC     := gcc
-CFLAGS := -Werror -std=gnu99 -g -Og
+CFLAGS := -Werror -std=gnu11 -g -Og
 
 
 OBJS := str.o list.o htable.o parse_words.o 
 
 all: clab2_test wordcount
+
+submitfiles: 
+	zip submitfiles.zip *.c *.h Makefile
 
 wordcount: $(OBJS) wordcount.o
 	gcc $^ -o $@ 

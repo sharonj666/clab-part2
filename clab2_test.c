@@ -75,7 +75,10 @@ void TestStr()
 
   printf("      int_to_hex...");
   unsigned int x = 10;
-  char buf[9];
+#define BUFSZ 100
+  char buf[BUFSZ];
+  memset(buf, 'x', BUFSZ);
+  buf[BUFSZ-1] = '\0';
   int_to_hex(x, buf);
   panic_cond(strcmp(buf, "0000000a")==0, 
     "x's hex string should be %08x instead of %s\n", x, buf);
@@ -215,6 +218,9 @@ void TestHashTable()
   panic_cond(ht->size == 0 && ht->arr_capacity == cap, 
       "after htable_create, ht->size, ht->arr_capacity should be 0,%d instead of %d,%d",
       cap, ht->size, ht->arr_capacity);
+  for (int i = 0; i < ht->arr_capacity; i++) {
+    panic_cond(ht->arr[i] == NULL, "htable_create should initialize all hash buckets (aka linked list head pointers) to NULL");
+  }
   printf("passed\n");
 
   printf("      hashcode...");
