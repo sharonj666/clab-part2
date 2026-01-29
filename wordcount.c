@@ -1,7 +1,7 @@
 #include <sys/types.h>
-#include <sys/unistd.h>
 #include <sys/stat.h>
-#include <sys/fcntl.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>

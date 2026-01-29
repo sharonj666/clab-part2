@@ -8,12 +8,17 @@
 #include "parse_words.h"
 
 /////////  Bonus exercise //////////
-//This function parses NULL-terminated byte array "buf" 
-//to extract words and stores them in the given htable "ht"
-//Words are separated from each other by a single newline chracter '\n'
-//Return the number of words parsed/stored
+// This function parses a NULL-terminated byte array "buf"
+// to extract words and stores them in the given htable "ht".
+// Words are separated from each other by newline characters '\n'.
+// Returns the number of words parsed/stored.
 //
-//Hint: consider using the C library function strtok_r
+// Hint: Consider using the C library function strtok_r.
+// (see https://man7.org/linux/man-pages/man3/strtok.3.html)
+// Note: strtok_r modifies the input buffer by replacing delimiters
+// with null characters. The returned token pointers point directly
+// into the original buffer, so the buffer must remain valid while
+// the hash table is in use.
 unsigned int parse_n_store_words(char *buf, htable_t *ht)
 {
   //TODO: Your code here

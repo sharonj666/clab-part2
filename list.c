@@ -27,8 +27,9 @@ void sum_accum(int *existing_val, int new_val)
   (*existing_val) += new_val;
 }
 
-// Insert a key value pair into the linked list while maintaining sorted order. 
-// Return true if the key does not already exists; false otherwise.
+// Insert a key value pair into the linked list while maintaining sorted order
+// (alphabetically by key, in ascending order).
+// Return true if the key does not already exist; false otherwise.
 //
 // If the key already exists, accumulate the new value into the existing value 
 // using the given function pointer "accum".  The implementation of an example 
@@ -63,12 +64,14 @@ int list_find(lnode_t *headp, char *key)
   // TODO: Your code here
 }
 
-// Traverse the linked list starting from node pointed to by "headp" 
+// Traverse the linked list starting from node pointed to by "headp"
 // and store all the encountered key-value tuples in the array "tuples".
-// The capacity of the "tuples" array is "max", thus, the function should not 
+// The capacity of the "tuples" array is "max", thus, the function should not
 // store more than "max" pointers in "tuples".
-// Return value is the actual number of key-value tuples 
-// written to "tuples".
+// Return value is the actual number of key-value tuples written to "tuples".
+//
+// Note: Since the list is maintained in sorted order, the returned tuples
+// will also be in sorted order by key.
 int list_get_all_tuples(lnode_t *headp, kv_t *tuples, int max)
 {
   // TODO: Your code here
