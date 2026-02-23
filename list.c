@@ -17,6 +17,7 @@
 void list_init(lnode_t **headdp)
 {
   //TODO: your code here
+  *headdp=NULL;
 }
 
 // sum_accum is an accumulator function that adds "new_val" into the 
@@ -49,7 +50,35 @@ void sum_accum(int *existing_val, int new_val)
 bool list_insert_with_accum(lnode_t **headdp, char *key, int val, 
     void (*accum)(int *existing_val, int new_val))
 {
-  //TODO: Your code here
+    lnode_t *current = *headdp;
+    lnode_t *prev = NULL;
+
+    //find the correct position 
+    while (current != NULL && strcmp(current->tuple.key, key) < 0) {
+        prev = current;
+        current = current->next;
+    }
+
+    // if key exists
+    if (current != NULL && strcmp(current->tuple.key, key) == 0) {
+        accum(&(current->tuple.val), val);
+        return false;
+    }
+
+    // Key does not exist
+    lnode_t *new_node = (lnode_t *)malloc(sizeof(lnode_t));
+    new_node->tuple.key = key; 
+    new_node->tuple.val = val;
+    new_node->next = current;
+
+    // Insert the new node 
+    if (prev == NULL) {
+        *headdp = new_node;
+    } else {
+        prev->next = new_node;
+    }
+
+    return true;
 }
 
 // Find if a given key string exists in the sorted linked list.
@@ -61,7 +90,15 @@ bool list_insert_with_accum(lnode_t **headdp, char *key, int val,
 // You may use strcmp from C library (instead of your own string_cmp in str.h).
 int list_find(lnode_t *headp, char *key)
 {
-  // TODO: Your code here
+    lnode_t *current = headp;
+    while (current != NULL) {
+        if (strcmp(current->tuple.key, key) == 0) {
+            // Key found, return the associated value
+            return current->tuple.val;
+        }
+        current = current->next;
+      }
+    return -1;
 }
 
 // Traverse the linked list starting from node pointed to by "headp"
@@ -75,4 +112,12 @@ int list_find(lnode_t *headp, char *key)
 int list_get_all_tuples(lnode_t *headp, kv_t *tuples, int max)
 {
   // TODO: Your code here
+  int count=0;
+  lnode_t *current = headp;
+  while (current != NULL && count < max) {
+    tuples[count] = current->tuple; // Copy the key-value tuple to the output array
+    count++;
+    current = current->next;
+  }
+  return count;
 }

@@ -22,6 +22,15 @@
 unsigned int parse_n_store_words(char *buf, htable_t *ht)
 {
   //TODO: Your code here
+  unsigned int count=0;
+  char *saveptr=NULL;
+  char *token=strtok_r(buf,"\n",&saveptr);
+  while(token!=NULL){
+    htable_put(ht,token,1,sum_accum);
+    count++;
+    token=strtok_r(NULL,"\n",&saveptr);
+  }
+  return count;
 }
 
 
